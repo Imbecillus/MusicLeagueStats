@@ -1,0 +1,16 @@
+<div class="dropdown">
+  <button>{{ dropdown.title }}</button>
+  <div class="content">
+    <div *ngFor="let col of dropdown.columns" class="column">
+      @if (col.title) {
+        <span class="col-title">{{ col.title }}</span>
+      }
+      <app-dropdown-option 
+        *ngFor="let option of col.options"
+        [option]="option"
+        [getCheckedState]="this.chartFilterService.getCompetitorState"
+        (changeEvent)="onOptionChange($event)"
+      ></app-dropdown-option>
+    </div>
+  </div>
+</div>

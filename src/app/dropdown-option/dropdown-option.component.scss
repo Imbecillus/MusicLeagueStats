@@ -1,0 +1,26 @@
+.dropdown-option {
+
+  margin: 4px;
+  padding-right: 8px;
+
+  font-size: 12px;
+
+  display: flex;
+  align-items: center;
+
+  input {
+    display: inline-block;
+  }
+
+  label {
+    display: inline-block;
+    width: 100%;
+  }
+
+}
+
+.dropdown-option:hover {
+
+  background-color: #d7b26d;
+
+}

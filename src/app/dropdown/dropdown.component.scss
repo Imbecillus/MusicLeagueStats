@@ -1,0 +1,46 @@
+.dropdown {
+
+  position: relative;
+  display: inline-block;
+
+  button {
+
+    background-color: #3c552d;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+
+  }
+
+  .content {
+
+    display: none;
+    position: absolute;
+    background-color: #eee2b5;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+
+    .column {
+
+      width: max-content;
+
+      margin: 5px;
+
+    }
+
+  }
+
+}
+
+.dropdown:hover {
+
+  .content {
+
+    display: flex;
+
+  }
+
+}

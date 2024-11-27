@@ -1,0 +1,10 @@
+<div class="dropdown-option">
+  <input
+    #checkbox
+    id="checkbox_{{ option.id }}" 
+    type="checkbox"
+    checked="{{checked}}"
+    (change)="onChange()"
+  >
+  <label for="checkbox_{{ option.id }}">{{ option.title }}</label>
+</div>
