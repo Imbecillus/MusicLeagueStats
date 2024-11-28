@@ -27,7 +27,7 @@ export const initializeVotes = async (): Promise<void> => {
 };
 
 
-export const getVotesByCompetitors = (to: string, from: string, activeRounds?: Set<string>): number => {
+export const getVotesByCompetitors = (from: string, to: string, activeRounds?: Set<string>): number => {
 
   if (!__CACHE?.length) {
     console.error('Vote cache not initialized.');
@@ -42,13 +42,13 @@ export const getVotesByCompetitors = (to: string, from: string, activeRounds?: S
       continue;
     }
 
-    if (vote["Voter ID"] !== to) {
+    if (vote["Voter ID"] !== from) {
       continue;
     }
 
     const recipient = getSubmissionBySpotifyUri(vote["Spotify URI"])["Submitter ID"];
 
-    if (recipient !== from) {
+    if (recipient !== to) {
       continue;
     }
 
