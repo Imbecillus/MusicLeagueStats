@@ -6,8 +6,31 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+
+    /* https://css-loaders.com/classic/ */
+    .loader {
+      font-weight: bold;
+      font-family: sans-serif;
+      font-size: 30px;
+      animation: l1 1s linear infinite alternate;
+
+      text-align: center;
+
+      margin-top: 20%;
+    }
+
+    .loader:before {
+      content: "Loading..."
+    }
+
+    @keyframes l1 {to{opacity: 0}}
+
+  </style>
 </head>
 <body>
-  <app-root></app-root>
+  <app-root>
+    <div class="loader"></div>
+  </app-root>
 </body>
 </html>
