@@ -27,6 +27,34 @@ export const initializeVotes = async (): Promise<void> => {
 };
 
 
+export const getTotalVotesCast = (competitor: string, activeRounds?: Set<string>): number => {
+
+  if (!__CACHE?.length) {
+    console.error('Vote cache not initialized.');
+    return;
+  }
+
+  let votes: number = 0;
+
+  for (const vote of __CACHE) {
+
+    if (activeRounds && !activeRounds.has(vote["Round ID"])) {
+      continue;
+    }
+
+    if (vote["Voter ID"] !== competitor) {
+      continue;
+    }
+
+    votes += vote["Points Assigned"];
+
+  }
+
+  return votes;
+
+}
+
+
 export const getVotesByCompetitors = (from: string, to: string, activeRounds?: Set<string>): number => {
 
   if (!__CACHE?.length) {

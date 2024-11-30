@@ -1,0 +1,51 @@
+<div class="fanlist">
+  <div class="spotlight">
+    <h4 class="title">Dein größter Fan</h4>
+    <div class="personInfo">
+      <span class="fanName">
+        <strong>{{fanData.biggestFan.name}}</strong>
+      </span>
+      <span class="fanInfo">
+        {{fanData.biggestFan.votes}} Votes
+        ({{fanData.biggestFan.percentageResolved}}% der abgegebenen Stimmen)
+      </span>
+    </div>
+  </div>
+
+  @if (expanded) {
+  <div class="between">
+    <div
+      class="personInfo"
+      *ngFor="let fan of fanData.between"
+    >
+      <span class="fanName">
+        <strong>{{fan.name}}</strong>
+      </span>
+      <span class="fanInfo">
+        {{fan.votes}} Votes
+        ({{fan.percentageResolved}}% der abgegebenen Stimmen)
+      </span>
+    </div>
+  </div>
+  <button (click)="this.expanded = !this.expanded">
+    Mittlere Plätze ausblenden
+  </button>
+  } @else {
+    <button (click)="this.expanded = !this.expanded">
+      Alle zeigen
+    </button>
+  }
+
+  <div class="spotlight">
+    <h4 class="title">Dein größter Hater</h4>
+    <div class="personInfo">
+      <span class="fanName">
+        <strong>{{fanData.biggestHater.name}}</strong>
+      </span>
+      <span class="fanInfo">
+        {{fanData.biggestHater.votes}} Votes
+        ({{fanData.biggestHater.percentageResolved}} % der abgegebenen Stimmen)
+      </span>
+    </div>
+  </div>
+</div>

@@ -4,24 +4,9 @@ import { DataSelectorComponent } from "../data-selector/data-selector.component"
 import { resolveHeatmapData } from '../../dataResolvers/HeatmapResolver';
 
 @Component({
-  selector: 'app-main',
+  selector: 'app-score-overview',
   standalone: true,
   imports: [ChartHeatmapComponent, DataSelectorComponent],
-  templateUrl: './main.component.html',
-  styleUrl: './main.component.scss'
+  templateUrl: './score-overview.component.html'
 })
-export class MainComponent {
-
-  chartData: ApexAxisChartSeries;
-
-  onFiltersChange = (activeCompetitors: Set<string>) => {
-
-    console.log(activeCompetitors);
-
-    this.chartData = resolveHeatmapData(activeCompetitors);
-
-    console.log(this.chartData);
-
-  }
-
-}
+export class ScoreOverviewComponent { }

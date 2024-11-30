@@ -1,0 +1,64 @@
+.fanlist {
+
+  text-align: center;
+
+}
+
+.spotlight {
+
+  text-align: center;
+
+  margin: 10px;
+
+  .title {
+
+    margin: 0px;
+
+  }
+
+  .fanName {
+
+    display: block;
+
+    font-size: larger;
+
+  }
+
+}
+
+.between {
+
+  text-align: center;
+
+  margin: 10px;
+
+  .personInfo {
+
+    margin-bottom: 10px;
+
+    .fanName {
+      display: block;
+      font-size: smaller;
+    }
+  
+    .fanInfo {
+      font-size: smaller;
+    }
+
+  }
+
+}
+
+button {
+
+  background-color: inherit;
+  border: 0;
+
+  opacity: 0.4;
+
+}
+
+button:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
