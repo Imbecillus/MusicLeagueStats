@@ -41,7 +41,7 @@ export class ChartHeatmapComponent implements AfterViewInit, OnInit {
 
     this.chart = new ApexCharts(element, {
       chart: {
-        height: 750,
+        height: 700,
         type: 'heatmap',
         toolbar: {
           show: false
