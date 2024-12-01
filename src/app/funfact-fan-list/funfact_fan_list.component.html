@@ -12,8 +12,11 @@
     </button>
     <div
       class="personInfo"
-      *ngFor="let fan of fanData.between"
+      *ngFor="let fan of fanData.between; index as i"
     >
+      <div class="place">
+        {{i + 2}}
+      </div>
       <span class="fanName">
         <strong>{{fan.name}}</strong>
       </span>
