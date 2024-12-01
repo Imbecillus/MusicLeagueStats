@@ -1,16 +1,9 @@
 <div class="fanlist">
-  <div class="spotlight">
-    <h4 class="title">Dein größter Fan</h4>
-    <div class="personInfo">
-      <span class="fanName">
-        <strong>{{fanData.biggestFan.name}}</strong>
-      </span>
-      <span class="fanInfo">
-        {{fanData.biggestFan.votes}} Votes
-        ({{fanData.biggestFan.percentageResolved}}% der abgegebenen Stimmen)
-      </span>
-    </div>
-  </div>
+  <app-fun-fact-spotlight
+    title="Dein größter Fan"
+    [headline]="fanData.biggestFan.name"
+    subline="{{fanData.biggestFan.votes}} Votes ({{fanData.biggestFan.percentageResolved}}% der abgegebenen Stimmen)"
+  ></app-fun-fact-spotlight>
 
   @if (expanded) {
   <div class="between">
@@ -36,16 +29,9 @@
     </button>
   }
 
-  <div class="spotlight">
-    <h4 class="title">Dein größter Hater</h4>
-    <div class="personInfo">
-      <span class="fanName">
-        <strong>{{fanData.biggestHater.name}}</strong>
-      </span>
-      <span class="fanInfo">
-        {{fanData.biggestHater.votes}} Votes
-        ({{fanData.biggestHater.percentageResolved}} % der abgegebenen Stimmen)
-      </span>
-    </div>
-  </div>
+  <app-fun-fact-spotlight
+    title="Dein größter Hater"
+    [headline]="fanData.biggestHater.name"
+    subline="{{fanData.biggestHater.votes}} Votes ({{fanData.biggestHater.percentageResolved}}% der abgegebenen Stimmen)"
+  ></app-fun-fact-spotlight>
 </div>

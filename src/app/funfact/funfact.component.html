@@ -1,7 +1,28 @@
 <div class="funfacts">
   <h2>Fun Facts</h2>
 
+  <select #competitorSelection (change)="this.onSelectCompetitor()">
+    <option 
+      *ngFor="let competitor of competitors"
+      value="{{competitor.ID}}"
+    >
+      {{competitor.Name}}
+    </option>
+  </select>
+
   <app-fun-fact-fans
     [fanData]="fanData"
   ></app-fun-fact-fans>
+
+  <app-fun-fact-spotlight
+    [headline]="this.bestRound.headline"
+    [subline]="this.bestRound.subline"
+    [title]="this.bestRound.title"
+  ></app-fun-fact-spotlight>
+
+  <app-fun-fact-spotlight
+    [headline]="this.worstRound.headline"
+    [subline]="this.worstRound.subline"
+    [title]="this.worstRound.title"
+  ></app-fun-fact-spotlight>
 </div>

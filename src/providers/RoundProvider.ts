@@ -43,3 +43,10 @@ export const getRounds = (): IRound[] => {
   });
 
 };
+
+
+export const getRoundById = (roundId: string): IRound => {
+
+  return __CACHE.get(roundId);
+
+};

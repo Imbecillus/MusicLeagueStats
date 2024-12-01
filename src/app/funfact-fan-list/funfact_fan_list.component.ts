@@ -1,5 +1,6 @@
 import { NgFor } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { FunFactSpotlight } from "../funfact-spotlight/funfact-spotlight.component";
 
 export interface IFanData {
 
@@ -21,7 +22,7 @@ export interface IFanList {
 @Component({
   selector: 'app-fun-fact-fans',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, FunFactSpotlight],
   templateUrl: './funfact_fan_list.component.html',
   styleUrl: './funfact_fan_list.component.scss'
 })
