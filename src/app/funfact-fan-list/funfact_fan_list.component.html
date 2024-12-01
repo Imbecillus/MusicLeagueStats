@@ -7,6 +7,9 @@
 
   @if (expanded) {
   <div class="between">
+    <button (click)="this.expanded = !this.expanded">
+      Mittlere Plätze ausblenden
+    </button>
     <div
       class="personInfo"
       *ngFor="let fan of fanData.between"
@@ -20,9 +23,6 @@
       </span>
     </div>
   </div>
-  <button (click)="this.expanded = !this.expanded">
-    Mittlere Plätze ausblenden
-  </button>
   } @else {
     <button (click)="this.expanded = !this.expanded">
       Alle zeigen
