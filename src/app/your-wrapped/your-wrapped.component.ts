@@ -16,13 +16,13 @@ interface ISpotlight {
 }
 
 @Component({
-  selector: 'app-fun-facts',
+  selector: 'app-your-wrapped',
   standalone: true,
   imports: [FunFactFansComponent, FunFactSpotlight, NgFor],
-  templateUrl: './funfact.component.html',
-  styleUrl: './funfact.component.scss'
+  templateUrl: './your-wrapped.component.html',
+  styleUrl: './your-wrapped.component.scss'
 })
-export class FunFactComponent {
+export class YourWrappedComponent {
 
   competitors: ICompetitor[];
 
