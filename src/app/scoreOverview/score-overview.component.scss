@@ -17,4 +17,28 @@
 
   }
 
+  .chart-area {
+
+    @media (max-width: 1000px) {
+      display: none;
+    }
+
+  }
+
+  .your-screen-is-too-small-mate {
+
+    margin: 25px 0px;
+
+    padding: 10px;
+
+    border-radius: 5px;
+
+    background-color: #69964f;
+
+    @media (min-width: 1000px) {
+      display: none;
+    }
+
+  }
+
 }

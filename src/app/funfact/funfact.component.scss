@@ -6,6 +6,12 @@
 
   background-color: #d7b26d;
 
+  @media (max-width: 640px) {
+
+    padding: 5px 0px;
+
+  }
+
   h2 {
 
     text-align: center;
