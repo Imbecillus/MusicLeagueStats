@@ -26,7 +26,7 @@ export const initializeSubmissions = async (): Promise<void> => {
 
 
 export const getSubmissionBySpotifyUri = (spotifyUri: string): ISubmission => {
-  
+
   if (!__CACHE?.size) {
     console.error('Submission cache not initialized.');
     return;
