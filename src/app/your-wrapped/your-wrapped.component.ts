@@ -6,14 +6,7 @@ import { FunFactSpotlight } from '../funfact-spotlight/funfact-spotlight.compone
 import { getRoundById } from '../../providers/RoundProvider';
 import { ICompetitor } from '../../interfaces/ICompetitor';
 import { NgFor } from '@angular/common';
-
-interface ISpotlight {
-
-  title: string;
-  headline: string;
-  subline: string;
-
-}
+import { ISpotlight } from '../../interfaces/ISpotlight';
 
 @Component({
   selector: 'app-your-wrapped',

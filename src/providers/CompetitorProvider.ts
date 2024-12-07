@@ -38,3 +38,15 @@ export const getCompetitors = (): ICompetitor[] => {
   });
 
 };
+
+
+export const getCompetitorName = (id: string): string => {
+
+  if (!__CACHE?.size) {
+    console.error('Competitor cache not initialized.');
+    return;
+  }
+
+  return __CACHE.get(id).Name;
+
+};

@@ -1,7 +1,7 @@
 export interface ISubmission {
 
   Album: string;
-  Artist: string;
+  ["Artist(s)"]: string;
   Title: string;
   Created: string;
   ["Spotify URI"]: string;

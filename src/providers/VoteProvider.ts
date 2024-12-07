@@ -5,6 +5,7 @@ import { getSubmissionBySpotifyUri } from "./SubmissionProvider";
 type RoundVotes = [round: string, votes: number];
 
 let __CACHE: IVote[];
+let __SCORE_CACHE: Map<string, number>;
 
 export const initializeVotes = async (): Promise<void> => {
 
@@ -26,6 +27,102 @@ export const initializeVotes = async (): Promise<void> => {
   }
 
 };
+
+
+const initializeScores = () => {
+
+  __SCORE_CACHE = new Map();
+
+  for (const vote of __CACHE) {
+
+    if (vote["Points Assigned"] === 0) {
+      continue;
+    }
+
+    const submission = getSubmissionBySpotifyUri(vote["Spotify URI"]);
+
+    if (__SCORE_CACHE.has(submission["Submitter ID"])) {
+      __SCORE_CACHE.set(
+        submission["Submitter ID"],
+        __SCORE_CACHE.get(submission["Submitter ID"]) + vote["Points Assigned"]
+      )
+    } else {
+      __SCORE_CACHE.set(
+        submission["Submitter ID"],
+        vote["Points Assigned"]
+      )
+    }
+
+  }
+
+}
+
+
+export const getAllVotes = function* (): Generator<IVote> {
+
+  if (!__CACHE?.length) {
+    console.error('Vote cache not initialized.');
+    return;
+  }
+
+  for (const vote of __CACHE) {
+    yield vote;
+  }
+
+}
+
+
+export const getHighestVote = (): [song: string, voterId: string, points: number] => {
+
+  if (!__CACHE?.length) {
+    console.error('Vote cache not initialized.');
+    return;
+  }
+
+  let song, voterId: string;
+  let points: number = -Infinity;
+
+  for (const vote of __CACHE) {
+
+    if (vote["Points Assigned"] > points) {
+      song = vote["Spotify URI"];
+      voterId = vote["Voter ID"];
+      points = vote["Points Assigned"];
+    }
+
+  }
+
+  return [song, voterId, points];
+
+}
+
+
+export const getAllTimeBest = (): [highestPerson: string, highestScore: number] => {
+
+  if (!__CACHE?.length) {
+    console.error('Vote cache not initialized.');
+    return;
+  }
+
+  if (!__SCORE_CACHE) {
+    initializeScores();
+  }
+
+  let highestPerson: string;
+  let highestScore: number = -Infinity;
+
+  for (const [person, score] of __SCORE_CACHE.entries()) {
+
+    if (score > highestScore) {
+      highestScore = score;
+      highestPerson = person;
+    }
+
+  }
+
+  return [highestPerson, highestScore];
+
+}
 
 
 export const getTotalVotesCast = (competitor: string, activeRounds?: Set<string>): number => {
