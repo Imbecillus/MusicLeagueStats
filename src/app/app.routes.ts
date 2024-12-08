@@ -4,7 +4,8 @@ import { ScoreOverviewComponent } from './scoreOverview/score-overview.component
 import { EverythingWrappedComponent } from './everything-wrapped/everything-wrapped.component';
 
 export const routes: Routes = [
-  { path: '', component: EverythingWrappedComponent },
+  { path: '', redirectTo: '/wrapped', pathMatch: 'full' },
+  { path: 'wrapped', component: EverythingWrappedComponent },
   { path: 'heatmap', component: ScoreOverviewComponent },
   { path: 'your-wrapped', component: YourWrappedComponent }
 ];
