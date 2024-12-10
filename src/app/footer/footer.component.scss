@@ -1,0 +1,42 @@
+footer {
+
+  width: 70%;
+  margin: auto;
+
+  div {
+
+    padding: 5px 20px;
+    margin-bottom: 15px;
+
+    border-radius: 15px;
+
+    background-color: #d7b26d;
+
+    p {
+
+      text-align: center;
+      color: hsl(39, 57%, 29%);
+
+    }
+
+    hr {
+  
+      border-top: 1px solid hsl(39, 57%, 54%);
+      border-left: 1px solid hsl(39, 57%, 54%);
+      border-bottom: 1px solid hsl(39, 57%, 74%);
+      border-right: 1px solid hsl(39, 57%, 74%);
+  
+      width: 25%;
+  
+    }
+
+  }
+
+  @media (max-width: 640px) {
+
+    padding: 5px 0px;
+    width: 100%;
+
+  }
+
+}
