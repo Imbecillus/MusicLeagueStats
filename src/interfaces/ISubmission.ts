@@ -4,6 +4,7 @@ export interface ISubmission {
   ["Artist(s)"]: string;
   Title: string;
   Created: string;
+  Comment: string;
   ["Spotify URI"]: string;
   ["Submitter ID"]: string;
 

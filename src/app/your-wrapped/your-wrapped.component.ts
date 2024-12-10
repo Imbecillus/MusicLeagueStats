@@ -7,6 +7,8 @@ import { getRoundById } from '../../providers/RoundProvider';
 import { ICompetitor } from '../../interfaces/ICompetitor';
 import { NgFor } from '@angular/common';
 import { ISpotlight } from '../../interfaces/ISpotlight';
+import { getAvgCommentLengthFor, getLongestCommentFor } from '../../dataResolvers/AllTimeStatsResolver';
+import { getSubmissionBySpotifyUri } from '../../providers/SubmissionProvider';
 
 @Component({
   selector: 'app-your-wrapped',
@@ -26,6 +28,10 @@ export class YourWrappedComponent {
   fanData: IFanList;
   bestRound: ISpotlight;
   worstRound: ISpotlight;
+  avgCommentLength: ISpotlight;
+  longestComment: ISpotlight;
+  avgIntroductionLength: ISpotlight;
+  longestIntroduction: ISpotlight;
 
   constructor() {
 
@@ -79,18 +85,50 @@ export class YourWrappedComponent {
 
     const rounds = getVotesPerRound(this.competitorId);
 
-    console.log(rounds);
-
     this.bestRound = {
       headline: getRoundById(rounds.at(0)[0]).Name,
-      subline: `${rounds.at(0)[1]} Votes`,
+      subline: `${rounds.at(0)[1]} Punkte`,
       title: 'Deine beste Runde'
     }
 
     this.worstRound = {
       headline: getRoundById(rounds.at(-1)[0]).Name,
-      subline: `${rounds.at(-1)[1]} Votes`,
+      subline: `${rounds.at(-1)[1]} Punkte`,
       title: 'Deine schlechteste Runde'
+    }
+
+    const avgCommentLength = getAvgCommentLengthFor(this.competitorId, 'other');
+
+    this.avgCommentLength = {
+      headline: `${Math.round(avgCommentLength)} Zeichen`,
+      subline: 'war deine durchschnittliche Vote-Kommentar-Länge',
+      title: 'Du hattest viel zu sagen!'
+    }
+
+    const longestComment = getLongestCommentFor(this.competitorId, 'other');
+    const longestCommentSubmission = getSubmissionBySpotifyUri(longestComment[0]);
+
+    this.longestComment = {
+      headline: `${longestCommentSubmission.Title} — ${longestCommentSubmission['Artist(s)']}`,
+      subline: `${longestComment[1]} Zeichen hast du geschrieben! War es Lob oder Rant?`,
+      title: 'Dein längster Kommentar'
+    }
+
+    const avgIntroductionLength = getAvgCommentLengthFor(this.competitorId, 'own');
+
+    this.avgIntroductionLength = {
+      headline: `${Math.round(avgIntroductionLength)} Zeichen`,
+      subline: 'hast du im Schnitt zu deinen eigenen Songs geschrieben.',
+      title: 'Ich erklär euch das mal.'
+    }
+
+    const longestIntroduction = getLongestCommentFor(this.competitorId, 'own');
+    const longestIntroductionSubmission = getSubmissionBySpotifyUri(longestIntroduction[0]);
+
+    this.longestIntroduction = {
+      headline: `${longestIntroductionSubmission.Title} — ${longestIntroductionSubmission['Artist(s)']}`,
+      subline: `In ${longestIntroduction[1]} Zeichen hast du deine Liebe zum Ausdruck gebracht.`,
+      title: 'Am wichtigsten war dir'
     }
 
   }

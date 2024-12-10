@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FunFactSpotlight } from '../funfact-spotlight/funfact-spotlight.component';
-import { getBestAndWorstSubmission } from '../../dataResolvers/AllTimeStatsResolver';
+import { getBestAndWorstSubmission, getMostAndLeastWordyCommenter } from '../../dataResolvers/AllTimeStatsResolver';
 import { ISpotlight } from '../../interfaces/ISpotlight';
 import { getAllTimeBest, getHighestVote } from '../../providers/VoteProvider';
 import { getCompetitorName } from '../../providers/CompetitorProvider';
@@ -20,6 +20,10 @@ export class EverythingWrappedComponent {
   worstSong: ISpotlight;
   highestVote: ISpotlight;
   allTimeBest: ISpotlight;
+  mostWordyCommenter: ISpotlight;
+  leastWordyCommenter: ISpotlight;
+  mostWordyIntroductions: ISpotlight;
+  leastWordyIntroductions: ISpotlight;
 
   constructor() {
 
@@ -53,6 +57,34 @@ export class EverythingWrappedComponent {
       headline: getCompetitorName(highestPersonId),
       subline: `${highestScore} Punkte`,
       title: 'Insgesamt die meisten Punkte'
+    };
+
+    const [mostWordyCommenter, leastWordyCommenter] = getMostAndLeastWordyCommenter('other');
+
+    this.mostWordyCommenter = {
+      headline: mostWordyCommenter.commenterName,
+      subline: `Durchschnittlich ${Math.round(mostWordyCommenter.avgLength)} Zeichen pro Kommentar`,
+      title: 'Feulletonist*in'
+    };
+
+    this.leastWordyCommenter = {
+      headline: leastWordyCommenter.commenterName,
+      subline: `Durchschnittlich ${Math.round(leastWordyCommenter.avgLength)} Zeichen pro Kommentar`,
+      title: 'Kein Mensch der vielen Worte'
+    };
+
+    const [mostWordyIntroductions, leastWordyIntroductions] = getMostAndLeastWordyCommenter('own');
+
+    this.mostWordyIntroductions = {
+      headline: mostWordyIntroductions.commenterName,
+      subline: `Durchschnittlich ${Math.round(mostWordyIntroductions.avgLength)} Zeichen über die eigenen Songs`,
+      title: 'Radiomoderator*in'
+    };
+
+    this.leastWordyIntroductions = {
+      headline: leastWordyIntroductions.commenterName,
+      subline: `Durchschnittlich ${Math.round(leastWordyIntroductions.avgLength)} Zeichen über die eigenen Songs`,
+      title: 'Das steht für sich.'
     };
 
   }

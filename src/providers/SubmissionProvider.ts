@@ -25,6 +25,13 @@ export const initializeSubmissions = async (): Promise<void> => {
 };
 
 
+export const getAllSubmissions = (): ISubmission[] => {
+
+  return Array.from(__CACHE.values());
+
+};
+
+
 export const getSubmissionBySpotifyUri = (spotifyUri: string): ISubmission => {
 
   if (!__CACHE?.size) {
@@ -34,4 +41,4 @@ export const getSubmissionBySpotifyUri = (spotifyUri: string): ISubmission => {
 
   return __CACHE.get(spotifyUri);
 
-}
+};
