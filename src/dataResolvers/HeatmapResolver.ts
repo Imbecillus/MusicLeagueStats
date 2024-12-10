@@ -3,10 +3,6 @@ import { getVotesByCompetitors } from "../providers/VoteProvider";
 
 export const resolveHeatmapData = (activeCompetitors?: Set<string>, activeRounds?: Set<string>): ApexAxisChartSeries => {
 
-  console.log('Filtering');
-  console.log(activeCompetitors);
-  console.log(activeRounds);
-
   const series: ApexAxisChartSeries = [];
 
   const filterCompetitors: boolean = activeCompetitors?.size > 1;

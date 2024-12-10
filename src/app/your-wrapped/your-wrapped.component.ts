@@ -47,8 +47,6 @@ export class YourWrappedComponent {
 
     this.competitorId = this.competitorSelection.nativeElement.value;
 
-    console.log(this.competitorId)
-
     this.updateValues();
 
   }

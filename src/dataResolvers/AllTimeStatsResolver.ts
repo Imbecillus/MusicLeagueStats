@@ -85,8 +85,6 @@ export const getBestAndWorstSubmission = (): [best: IDisplayableSubmission, wors
     initializeCache();
   }
 
-  console.log(__SUBMISSION_SCORES);
-
   let bestUri: [string, number] = ['', -Infinity];
   let worstUri: [string, number] = ['', Infinity];
 
