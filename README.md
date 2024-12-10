@@ -32,3 +32,7 @@ Follow these steps to build and run the app:
 
 <sub>You also might want to translate the texts to English because I didn't get around
 to that yet lol</sub>
+
+## Acknowledgements
+
+The christmas ornament graphics are from [Freepik.com](https://www.freepik.com/).
