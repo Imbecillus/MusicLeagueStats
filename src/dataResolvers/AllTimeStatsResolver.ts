@@ -1,5 +1,5 @@
 import { getCompetitorName, getCompetitors } from "../providers/CompetitorProvider";
-import { getAllSubmissions, getSubmissionBySpotifyUri } from "../providers/SubmissionProvider";
+import { generateSubmissionId, getAllSubmissions, getSubmission } from "../providers/SubmissionProvider";
 import { getAllVotes } from "../providers/VoteProvider";
 
 type CommentStats = [submissionId: string, commentLength: number];
@@ -40,21 +40,26 @@ const initializeCache = (): void => {
   // Initialize map of all submissions and their scores.
   for (const vote of getAllVotes()) {
 
-    const spotifyUri = vote["Spotify URI"];
+    const submissionId = generateSubmissionId(
+      vote["Spotify URI"], vote["Round ID"]
+    );
 
-    if (__SUBMISSION_SCORES.get(spotifyUri)) {
+    if (__SUBMISSION_SCORES.get(submissionId)) {
       __SUBMISSION_SCORES.set(
-        spotifyUri,
-        __SUBMISSION_SCORES.get(spotifyUri) + vote["Points Assigned"]
+        submissionId,
+        __SUBMISSION_SCORES.get(submissionId) + vote["Points Assigned"]
       )
     } else {
       __SUBMISSION_SCORES.set(
-        spotifyUri,
+        submissionId,
         vote["Points Assigned"] ?? 0
       );
     }
 
-    const stat: CommentStats = [vote["Spotify URI"], vote.Comment?.length ?? 0];
+    const stat: CommentStats = [
+      generateSubmissionId(vote["Spotify URI"], vote["Round ID"]),
+      vote.Comment?.length ?? 0
+    ];
 
     if (__VOTE_COMMENT_LENGTHS.has(vote["Voter ID"])) {
       __VOTE_COMMENT_LENGTHS.get(vote["Voter ID"]).push(stat);
@@ -66,7 +71,8 @@ const initializeCache = (): void => {
 
   for (const submission of getAllSubmissions()) {
 
-    const stat: CommentStats = [submission["Spotify URI"], submission.Comment?.length ?? 0];
+    const submissionId = generateSubmissionId(submission["Spotify URI"], submission["Round ID"]);
+    const stat: CommentStats = [submissionId, submission.Comment?.length ?? 0];
 
     if (__SUBMISSION_COMMENT_LENGTHS.has(submission["Submitter ID"])) {
       __SUBMISSION_COMMENT_LENGTHS.get(submission["Submitter ID"]).push(stat);
@@ -85,34 +91,34 @@ export const getBestAndWorstSubmission = (): [best: IDisplayableSubmission, wors
     initializeCache();
   }
 
-  let bestUri: [string, number] = ['', -Infinity];
-  let worstUri: [string, number] = ['', Infinity];
+  let bestSubmission: [string, number] = ['', -Infinity];
+  let worstSubmission: [string, number] = ['', Infinity];
 
   for (const [uri, votes] of __SUBMISSION_SCORES.entries()) {
 
-    if (votes < worstUri[1]) {
-      worstUri = [uri, votes];
+    if (votes < worstSubmission[1]) {
+      worstSubmission = [uri, votes];
     }
 
-    if (votes > bestUri[1]) {
-      bestUri = [uri, votes];
+    if (votes > bestSubmission[1]) {
+      bestSubmission = [uri, votes];
     }
 
   }
 
-  const bestSong = getSubmissionBySpotifyUri(bestUri[0]);
-  const worstSong = getSubmissionBySpotifyUri(worstUri[0]);
+  const bestSong = getSubmission(bestSubmission[0]);
+  const worstSong = getSubmission(worstSubmission[0]);
 
   return [
     {
       artistName: bestSong["Artist(s)"],
-      score: bestUri[1],
+      score: bestSubmission[1],
       songTitle: bestSong.Title,
       submitterName: getCompetitorName(bestSong["Submitter ID"])
     },
     {
       artistName: worstSong["Artist(s)"],
-      score: worstUri[1],
+      score: worstSubmission[1],
       songTitle: worstSong.Title,
       submitterName: getCompetitorName(worstSong["Submitter ID"])
     }

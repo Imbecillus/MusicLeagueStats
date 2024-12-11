@@ -8,7 +8,7 @@ import { ICompetitor } from '../../interfaces/ICompetitor';
 import { NgFor } from '@angular/common';
 import { ISpotlight } from '../../interfaces/ISpotlight';
 import { getAvgCommentLengthFor, getLongestCommentFor } from '../../dataResolvers/AllTimeStatsResolver';
-import { getSubmissionBySpotifyUri } from '../../providers/SubmissionProvider';
+import { getSubmission } from '../../providers/SubmissionProvider';
 
 @Component({
   selector: 'app-your-wrapped',
@@ -104,7 +104,7 @@ export class YourWrappedComponent {
     }
 
     const longestComment = getLongestCommentFor(this.competitorId, 'other');
-    const longestCommentSubmission = getSubmissionBySpotifyUri(longestComment[0]);
+    const longestCommentSubmission = getSubmission(longestComment[0]);
 
     this.longestComment = {
       headline: `${longestCommentSubmission.Title} — ${longestCommentSubmission['Artist(s)']}`,
@@ -121,7 +121,7 @@ export class YourWrappedComponent {
     }
 
     const longestIntroduction = getLongestCommentFor(this.competitorId, 'own');
-    const longestIntroductionSubmission = getSubmissionBySpotifyUri(longestIntroduction[0]);
+    const longestIntroductionSubmission = getSubmission(longestIntroduction[0]);
 
     this.longestIntroduction = {
       headline: `${longestIntroductionSubmission.Title} — ${longestIntroductionSubmission['Artist(s)']}`,

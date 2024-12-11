@@ -1,6 +1,6 @@
 import { IVote } from "../interfaces/IVote";
 import { getLeagues, initializeLeagues } from "./LeagueProvider";
-import { getSubmissionBySpotifyUri } from "./SubmissionProvider";
+import { generateSubmissionId, getSubmission } from "./SubmissionProvider";
 
 type RoundVotes = [round: string, votes: number];
 
@@ -39,7 +39,9 @@ const initializeScores = () => {
       continue;
     }
 
-    const submission = getSubmissionBySpotifyUri(vote["Spotify URI"]);
+    const submission = getSubmission(
+      generateSubmissionId(vote["Spotify URI"], vote["Round ID"])
+    );
 
     if (__SCORE_CACHE.has(submission["Submitter ID"])) {
       __SCORE_CACHE.set(
@@ -72,27 +74,28 @@ export const getAllVotes = function* (): Generator<IVote> {
 }
 
 
-export const getHighestVote = (): [song: string, voterId: string, points: number] => {
+export const getHighestVote = (): [submissionId: string, voterId: string, points: number] => {
 
   if (!__CACHE?.length) {
     console.error('Vote cache not initialized.');
     return;
   }
 
-  let song, voterId: string;
+  let song, round, voterId: string;
   let points: number = -Infinity;
 
   for (const vote of __CACHE) {
 
     if (vote["Points Assigned"] > points) {
       song = vote["Spotify URI"];
+      round = vote["Round ID"];
       voterId = vote["Voter ID"];
       points = vote["Points Assigned"];
     }
 
   }
 
-  return [song, voterId, points];
+  return [generateSubmissionId(song, round), voterId, points];
 
 }
 
@@ -172,7 +175,9 @@ export const getVotesByCompetitors = (from: string, to: string, activeRounds?: S
       continue;
     }
 
-    const recipient = getSubmissionBySpotifyUri(vote["Spotify URI"])["Submitter ID"];
+    const recipient = getSubmission(
+      generateSubmissionId(vote["Spotify URI"], vote["Round ID"])
+    )?.["Submitter ID"];
 
     if (recipient !== to) {
       continue;
@@ -196,7 +201,9 @@ export const getVotesPerRound = (competitor: string): RoundVotes[] => {
 
   for (const vote of __CACHE) {
 
-    const recipient = getSubmissionBySpotifyUri(vote["Spotify URI"])["Submitter ID"];
+    const recipient = getSubmission(
+      generateSubmissionId(vote["Spotify URI"], vote["Round ID"])
+    )?.["Submitter ID"];
 
     if (recipient !== competitor) {
       continue;

@@ -7,5 +7,6 @@ export interface ISubmission {
   Comment: string;
   ["Spotify URI"]: string;
   ["Submitter ID"]: string;
+  ["Round ID"]: string;
 
 }

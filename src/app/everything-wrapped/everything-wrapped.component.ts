@@ -4,7 +4,7 @@ import { getBestAndWorstSubmission, getMostAndLeastWordyCommenter } from '../../
 import { ISpotlight } from '../../interfaces/ISpotlight';
 import { getAllTimeBest, getHighestVote } from '../../providers/VoteProvider';
 import { getCompetitorName } from '../../providers/CompetitorProvider';
-import { getSubmissionBySpotifyUri } from '../../providers/SubmissionProvider';
+import { getSubmission } from '../../providers/SubmissionProvider';
 
 
 @Component({
@@ -42,12 +42,12 @@ export class EverythingWrappedComponent {
     };
 
     const highestVote = getHighestVote();
-    const highestVoteSong = getSubmissionBySpotifyUri(highestVote[0]);
+    const highestVoteSong = getSubmission(highestVote[0]);
     const highestVoter = getCompetitorName(highestVote[1]);
 
     this.highestVote = {
       headline: `${highestVote[2]} Punkte`,
-      subline: `von ${highestVoter} an ${highestVoteSong.Title}`,
+      subline: `von ${highestVoter} an "${highestVoteSong.Title}"`,
       title: 'Höchste vergebene Punktzahl'
     };
 
