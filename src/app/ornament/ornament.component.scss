@@ -17,6 +17,15 @@ img {
     max-width: 75px;
     max-height: 75px;
   }
+
+  @media (max-width: 460px) {
+    max-width: 55px;
+    max-height: 55px;
+  }
+
+  @media (max-width: 410px) {
+    display: none;
+  }
 }
 
 .pos-2 {
@@ -51,5 +60,14 @@ img {
     right: 0%;
     max-width: 75px;
     max-height: 75px;
+  }
+
+  @media (max-width: 460px) {
+    max-width: 55px;
+    max-height: 55px;
+  }
+
+  @media (max-width: 410px) {
+    display: none;
   }
 }
