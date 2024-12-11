@@ -64,7 +64,7 @@ export class EverythingWrappedComponent {
     this.mostWordyCommenter = {
       headline: mostWordyCommenter.commenterName,
       subline: `Durchschnittlich ${Math.round(mostWordyCommenter.avgLength)} Zeichen pro Kommentar`,
-      title: 'Feulletonist*in'
+      title: 'Feuilletonist*in'
     };
 
     this.leastWordyCommenter = {
