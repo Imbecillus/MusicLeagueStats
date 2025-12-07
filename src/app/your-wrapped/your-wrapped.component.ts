@@ -8,7 +8,7 @@ import { ICompetitor } from '../../interfaces/ICompetitor';
 import { NgFor } from '@angular/common';
 import { ISpotlight } from '../../interfaces/ISpotlight';
 import { getAvgCommentLengthFor, getLongestCommentFor } from '../../dataResolvers/AllTimeStatsResolver';
-import { getSubmission } from '../../providers/SubmissionProvider';
+import { getSubmission, getSubmissionBySpotifyUri } from '../../providers/SubmissionProvider';
 
 @Component({
   selector: 'app-your-wrapped',
@@ -84,14 +84,14 @@ export class YourWrappedComponent {
     const rounds = getVotesPerRound(this.competitorId);
 
     this.bestRound = {
-      headline: getRoundById(rounds.at(0)[0]).Name,
-      subline: `${rounds.at(0)[1]} Punkte`,
+      headline: `${getRoundById(rounds.at(0).round).Name} (${getSubmissionBySpotifyUri(rounds.at(0).song)?.['Artist(s)']} — ${getSubmissionBySpotifyUri(rounds.at(0).song)?.Title})`,
+      subline: `${rounds.at(0).votes} Punkte`,
       title: 'Deine beste Runde'
     }
 
     this.worstRound = {
-      headline: getRoundById(rounds.at(-1)[0]).Name,
-      subline: `${rounds.at(-1)[1]} Punkte`,
+      headline: `${getRoundById(rounds.at(-1).round).Name} (${getSubmissionBySpotifyUri(rounds.at(-1).song)?.['Artist(s)']} — ${getSubmissionBySpotifyUri(rounds.at(-1).song)?.Title})`,
+      subline: `${rounds.at(-1).votes} Punkte`,
       title: 'Deine schlechteste Runde'
     }
 

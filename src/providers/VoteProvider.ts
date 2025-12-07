@@ -2,7 +2,11 @@ import { IVote } from "../interfaces/IVote";
 import { getLeagues, initializeLeagues } from "./LeagueProvider";
 import { generateSubmissionId, getSubmission } from "./SubmissionProvider";
 
-type RoundVotes = [round: string, votes: number];
+type RoundVotes = {
+  round: string;
+  votes: number;
+  song: string;
+};
 
 let __CACHE: IVote[];
 let __SCORE_CACHE: Map<string, number>;
@@ -197,7 +201,7 @@ export const getVotesByCompetitors = (from: string, to: string, activeRounds?: S
  */
 export const getVotesPerRound = (competitor: string): RoundVotes[] => {
 
-  const roundVotes = new Map<string, number>();
+  const roundVotes = new Map<string, RoundVotes>();
 
   for (const vote of __CACHE) {
 
@@ -212,17 +216,24 @@ export const getVotesPerRound = (competitor: string): RoundVotes[] => {
     if (roundVotes.has(vote["Round ID"])) {
       roundVotes.set(
         vote["Round ID"],
-        roundVotes.get(vote["Round ID"]) + vote["Points Assigned"]
+        {
+          ...roundVotes.get(vote["Round ID"]),
+          votes: roundVotes.get(vote["Round ID"]).votes + vote["Points Assigned"]
+        }
       );
     } else {
       roundVotes.set(
         vote["Round ID"],
-        vote["Points Assigned"]
+        {
+          round: vote["Round ID"],
+          song: vote["Spotify URI"],
+          votes: vote["Points Assigned"]
+        }
       );
     }
 
   }
 
-  return Array.from(roundVotes.entries()).sort((a, b) => b[1] - a[1]);
+  return Array.from(roundVotes.values()).sort((a, b) => b.votes - a.votes);
 
 }

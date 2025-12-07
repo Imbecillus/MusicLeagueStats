@@ -52,3 +52,19 @@ export const getSubmission = (submissionId: string): ISubmission => {
   );
 
 };
+
+
+export const getSubmissionBySpotifyUri = (uri: string): ISubmission => {
+
+  if (!__CACHE?.size) {
+    console.error('Submission cache not initialized.');
+    return;
+  }
+
+  for (const submission of __CACHE.values()) {
+    if (submission["Spotify URI"] === uri) {
+      return submission;
+    }
+  }
+
+};

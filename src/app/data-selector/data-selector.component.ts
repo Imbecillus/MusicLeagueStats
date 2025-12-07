@@ -9,7 +9,7 @@ import { getLeagues } from '../../providers/LeagueProvider';
 
 export enum Filter {
   COMPETITORS = 'competitors',
-  ROUNDS = 'rounds'
+  ROUNDS = 'leagues'
 };
 
 
