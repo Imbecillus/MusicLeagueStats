@@ -71,10 +71,20 @@ export class ChartHeatmapComponent implements AfterViewInit, OnInit {
           }
         }
       },
+      legend: {
+        show: false
+      },
       plotOptions: {
         heatmap: {
           colorScale: {
-            inverse: false
+            ranges: [
+              {
+                from: 0,
+                to: 0,
+                color: '#ffffff'
+              },
+            ],
+            inverse: false,
           },
           distributed: false
         }
