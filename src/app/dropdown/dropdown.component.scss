@@ -20,14 +20,29 @@
     position: absolute;
     background-color: #eee2b5;
     min-width: 160px;
+    max-width: 70vw;
+    max-height: 60vh;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 
+    overflow-y: scroll;
+
+    flex-direction: row;
+    flex-wrap: wrap;
+
     .column {
 
-      width: max-content;
+      max-width: 23vw;
 
       margin: 5px;
+
+      .col-title {
+        display: inline-block;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
 
     }
 

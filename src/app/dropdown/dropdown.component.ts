@@ -22,23 +22,37 @@ export class DropdownComponent {
 
   chartFilterService = inject(ChartFiltersService);
 
+  activeTimeout = null;
+  changes = new Set<DropdownOptionChange>();
+
   onOptionChange = (change: DropdownOptionChange) => {
 
-    const activeIds = this.filter === Filter.COMPETITORS
-      ? this.chartFilterService.getActiveCompetitors()
-      : this.chartFilterService.getActiveRounds();
+    this.changes.add(change);
 
-    if (change[1]) {
-      activeIds.add(change[0]);
-    } else {
-      activeIds.delete(change[0]);
-    }
+    clearTimeout(this.activeTimeout);
 
-    if (this.filter === Filter.COMPETITORS) {
-      this.chartFilterService.updateActiveCompetitors(activeIds);
-    } else {
-      this.chartFilterService.updateActiveRounds(activeIds);
-    }
+    this.activeTimeout = setTimeout(
+      () => {
+        const activeIds = this.filter === Filter.COMPETITORS
+          ? this.chartFilterService.getActiveCompetitors()
+          : this.chartFilterService.getActiveRounds();
+
+        for (const c of this.changes.values()) {
+          if (c[1]) {
+            activeIds.add(c[0]);
+          } else {
+            activeIds.delete(c[0]);
+          }
+        }
+
+        if (this.filter === Filter.COMPETITORS) {
+          this.chartFilterService.updateActiveCompetitors(activeIds);
+        } else {
+          this.chartFilterService.updateActiveRounds(activeIds);
+        }
+      },
+      750
+    )
 
   }
 
